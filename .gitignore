@@ -1,0 +1,8 @@
+# Competition data (download it from Kaggle, see data/README.md)
+data/*.csv
+
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+.venv/
