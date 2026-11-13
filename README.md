@@ -69,38 +69,39 @@ kaggle-classical-music-ml/
 ├── data/                          # competition files go here (not included)
 ├── notebooks/
 │   └── classical_music_ml.ipynb   # full analysis: data, features, validation, models
-├── src/
+├── configs/
+│   └── final_model.yaml           # hyperparameters, CV settings and paths
+├── src/classical_music_ml/
 │   ├── data.py                    # loads and cleans the data
 │   ├── features.py                # feature pipeline (same for train and test)
 │   ├── model.py                   # final model and cross-validation
-│   └── train.py                   # trains the final model and writes the submission
+│   ├── tracking.py                # run metadata (config, input hashes, metrics)
+│   └── train.py                   # single entry point: trains and writes the submission
 ├── submissions/
 │   ├── logistic_regression.csv    # first submission
 │   └── final_ensemble.csv         # final submission
-├── requirements.txt
+├── pyproject.toml / uv.lock       # dependencies, pinned
+├── Makefile
 └── README.md
 ```
 
-The notebook explains every step and has all the experiments. The `src/` folder has only the code of the final model, so it can be run without the notebook.
+The notebook explains every step and has all the experiments. The `src/classical_music_ml/` package has only the code of the final model, so it can be run without the notebook.
 
 ## How to run
 
-After cloning the repo, download the competition files into `data/` and install the requirements from the root folder:
+After cloning the repo, download the competition files into `data/` (see [`data/README.md`](data/README.md)) and create the environment with [uv](https://docs.astral.sh/uv/):
 
 ```bash
-pip install -r requirements.txt
+make install    # uv sync --frozen --all-extras
+make train      # writes submissions/final_ensemble.csv (about 30 seconds)
+make cv         # also prints the 15-fold CV AUROC
 ```
 
-**Final submission** (about 30 seconds):
-
-```bash
-python -m src.train         # writes submissions/final_ensemble.csv
-python -m src.train --cv    # also prints the CV AUROC
-```
+Without uv: `pip install -e ".[notebook]"`, then `classical-music-ml --cv`.
 
 **Full analysis:** open `notebooks/classical_music_ml.ipynb` and run all the cells (about 15 minutes). It writes both files in `submissions/`. To run it in Google Colab, upload the notebook and the csv files, and set `DATA_PATH = ''` in the first code cell.
 
-All the CV splits and the random forest use `random_state=0`, so the results are the same every time.
+All the CV splits and the random forest use `random_state=0` (set in [`configs/final_model.yaml`](configs/final_model.yaml)), so the results are the same every time.
 
 ## A note on the account age
 

@@ -1,0 +1,22 @@
+# Configuration of the winning model. Every value here was chosen with
+# repeated stratified cross-validation (see notebooks/classical_music_ml.ipynb);
+# none was tuned on the leaderboard.
+
+data_dir: data                               # competition CSV files (see data/README.md)
+submission_path: submissions/final_ensemble.csv
+runs_dir: runs                               # one metadata.json per run (git-ignored)
+
+model:
+  lr_weight: 0.7                             # final score = 0.7 * LR + 0.3 * RF
+  rf_weight: 0.3
+  lr_C: 1.0
+  lr_max_iter: 5000
+  rf_n_estimators: 800
+  rf_min_samples_leaf: 10
+  rf_max_features: sqrt
+  random_state: 0
+
+cv:
+  n_splits: 5
+  n_repeats: 3                               # 15 folds, the same splits for every model
+  random_state: 0
