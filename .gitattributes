@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.png binary
+
+# GitHub language statistics: count the pipeline code, not the notebook output or generated files
+*.ipynb linguist-documentation
+uv.lock linguist-generated
+submissions/*.csv linguist-generated
+results/*.csv linguist-generated
