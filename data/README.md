@@ -14,3 +14,5 @@ data/
 ├── concerts_2014-15.csv
 └── zipcodes.csv
 ```
+
+The files are not redistributed here. The tests do not need them: `tests/synthetic.py` writes a small synthetic copy with the same schema.

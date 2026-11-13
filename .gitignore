@@ -1,8 +1,17 @@
 # Competition data (download it from Kaggle, see data/README.md)
 data/*.csv
 
+# Run metadata written by every training run
+runs/
+
+# Python, notebooks and tooling
 __pycache__/
 *.pyc
 .ipynb_checkpoints/
-.DS_Store
 .venv/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+.DS_Store
